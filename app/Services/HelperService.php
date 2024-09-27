@@ -67,7 +67,10 @@ class HelperService
 
             return $result;
         } catch (\Exception $exception) {
-            $result = self::convertResponse(json_decode(Storage::get("/services/$service.json")));
+
+            $result = json_decode(Storage::get("/services/$service.json"));
+            $result = self::convertResponse($result);
+
             self::putCategoriesIntoCache($result, $service);
 
             return $result;
