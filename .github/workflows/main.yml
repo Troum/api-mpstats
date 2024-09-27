@@ -1,4 +1,4 @@
-name: Deploy Laravel Application
+name: Deploy Application
 
 on:
   push:
@@ -13,25 +13,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install SSH client
-        run: sudo apt-get install -y sshpass
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 80.78.240.29 >> ~/.ssh/known_hosts
 
       - name: Deploy to Server via SSH
-        env:
-          SSH_PASS: ${{ secrets.SSH_PASS }}
         run: |
-          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no root@80.78.240.29 << 'EOF'
+          ssh user@80.78.240.29 << 'EOF'
             cd /var/www/api.mpstats.space
             git pull origin main
 
-            # Use the correct paths for PHP and Composer
+            # Install dependencies
             composer install --no-interaction --prefer-dist --optimize-autoloader
+
+            # Run migrations
             php artisan migrate --force
+
+            # Clear and cache configurations
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
 
-            # Restart PHP-FPM (make sure the correct service is specified)
+            # Restart PHP-FPM (ensure the user has permissions)
             sudo systemctl restart php8.2-fpm
           EOF
