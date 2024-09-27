@@ -25,7 +25,7 @@ jobs:
 
       - name: Deploy to Server via SSH
         run: |
-          ssh user@80.78.240.29 << 'EOF'
+          ssh root@80.78.240.29 << 'EOF'
             cd /var/www/api.mpstats.space
             git pull origin main
 
