@@ -52,16 +52,23 @@ class HelperService
      */
     final public static function getCategoriesFromCache(string $service, Closure $closure): mixed
     {
-        if (Cache::has("$service.categories")) {
-            return Cache::get("$service.categories");
+        try {
+            if (Cache::has("$service.categories")) {
+                return Cache::get("$service.categories");
+            }
+
+            $response = call_user_func($closure);
+            $result = self::convertResponse($response);
+
+            self::putCategoriesIntoCache($result, $service);
+
+            return $result;
+        } catch (\Exception $exception) {
+            $result = json_decode(Storage::get("/services/$service.json"));
+            self::putCategoriesIntoCache($result, $service);
+
+            return $result;
         }
-
-        $response = call_user_func($closure);
-        $result = self::convertResponse($response);
-
-        self::putCategoriesIntoCache($result, $service);
-
-        return $result;
     }
 
     /**
