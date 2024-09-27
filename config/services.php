@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'mpstats' => [
+        'url' => env('MPSTATS_URL', ''),
+        'token' => env('MPSTATS_TOKEN', ''),
+    ],
 
 ];
