@@ -30,9 +30,12 @@ class HelperService
 
     }
 
-    final public static function convertResponse(Response $response): ConvertedResponse
+    final public static function convertResponse(Response|stdClass $response): ConvertedResponse
     {
-        return new ConvertedResponse($response->json());
+        return match (true) {
+            $response instanceof stdClass => new ConvertedResponse(['data' => $response]),
+            default => new ConvertedResponse($response->json()),
+        };
     }
 
     /**
