@@ -90,7 +90,7 @@ class HelperService
         $latest = Export::count();
 
         Export::create([
-            'name' => 'Экспорт № ' . $latest > 0 ? $latest : 1,
+            'file_name' => 'Экспорт № ' . $latest > 0 ? $latest : 1,
             'service' => $service,
             'url' => $url
         ]);

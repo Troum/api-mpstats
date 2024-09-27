@@ -73,6 +73,7 @@ final readonly class MpstatsService
     {
         $response = $this->http->post('/wb/get/category?' . $queryString, $data);
         $result = HelperService::convertResponse($response);
+
         $collection = new ResultCollection($result->data);
         $fileUrl = HelperService::exportToExcel($collection, 'wb');
 
@@ -101,6 +102,7 @@ final readonly class MpstatsService
     {
         $response = $this->http->post('/oz/get/category?' . $queryString, $data);
         $result = HelperService::convertResponse($response);
+
         $collection = new ResultCollection($result->data);
         $fileUrl = HelperService::exportToExcel($collection, 'oz');
 
@@ -128,6 +130,7 @@ final readonly class MpstatsService
     {
         $response = $this->http->post('/ym/get/category?' . $queryString, $data);
         $result = HelperService::convertResponse($response);
+
         $collection = new ResultCollection($result->data);
         $fileUrl = HelperService::exportToExcel($collection, 'ym');
 
