@@ -55,6 +55,7 @@ class HelperService
      */
     final public static function getCategoriesFromCache(string $service, Closure $closure): mixed
     {
+        ini_set('memory_limit', '1024M');
         if (Cache::has("$service.categories")) {
             return Cache::get("$service.categories");
         }
