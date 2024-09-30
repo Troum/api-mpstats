@@ -23,7 +23,7 @@ class ResultResource extends BasicResource
             'final_price_max' => $this->when(isset($this->resource->final_price_max), $this->resource->final_price_max),
             'final_price_average' => $this->when(isset($this->resource->final_price_average), $this->resource->final_price_average),
             'final_price_median' => $this->when(isset($this->resource->final_price_median), $this->resource->final_price_median),
-            'basic_sale' => $this->when(isset($this->resource->basic_sales), $this->resource->basic_sales),
+            'basic_sale' => $this->when(isset($this->resource->basic_sale), $this->resource->basic_sale),
             'basic_price' => $this->when(isset($this->resource->basic_price), $this->resource->basic_price),
             'sales' => $this->when(isset($this->resource->sales), $this->resource->sales),
             'sales_per_day_average' => $this->when(isset($this->resource->sales_per_day_average), $this->resource->sales_per_day_average),
