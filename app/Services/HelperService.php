@@ -55,11 +55,11 @@ class HelperService
      */
     final public static function getCategoriesFromCache(string $service, Closure $closure): mixed
     {
-        try {
-            if (Cache::has("$service.categories")) {
-                return Cache::get("$service.categories");
-            }
+        if (Cache::has("$service.categories")) {
+            return Cache::get("$service.categories");
+        }
 
+        try {
             $response = call_user_func($closure);
             $result = self::convertResponse($response);
 
