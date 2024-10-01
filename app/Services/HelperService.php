@@ -96,9 +96,11 @@ class HelperService
         $url = Storage::url($fileName);
 
         $latest = Export::count();
+        $latest = $latest > 0 ? $latest : 1;
+
 
         Export::create([
-            'file_name' => 'Экспорт № ' . $latest > 0 ? $latest : 1,
+            'file_name' => "Экспорт № $latest" ,
             'service' => $service,
             'url' => $url
         ]);
