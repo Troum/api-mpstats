@@ -45,7 +45,7 @@ class MpstatsController extends Controller
     public function getFiles(): JsonResponse
     {
         try {
-            $result = ['files' => Export::select(['file_name', 'url', 'service'])->get()];
+            $result = ['files' => Export::select(['file_name', 'url', 'service', 'created_at'])->get()];
             return $this->success($result);
         } catch (Throwable $th) {
             return $this->error($th->getMessage());
